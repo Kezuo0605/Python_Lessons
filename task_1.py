@@ -1,36 +1,48 @@
 """
-Задание 1.
+1. Отсортируйте по убыванию методом "пузырька" одномерный целочисленный массив,
+заданный случайными числами на промежутке [-100; 100). Выведите на экран
+исходный и отсортированный массивы. Сортировка должна быть реализована в
+виде функции. Обязательно доработайте алгоритм (сделайте его умнее).
 
-Докажите, что словари обрабатываются быстрее, чем списки.
+Идея доработки: если за проход по списку не совершается ни одной сортировки,
+то завершение
+Обязательно сделайте замеры времени обеих реализаций
+и обосновать дала ли оптимизация эффективность
 
-Реализуйте две функции, в первой нужно заполнить элементами список, во второй-словарь
-Сделайте замеры времени выполнения каждой из функций
-
-Подсказка: для замеров воспользуйтесь модулем time (см. примеры урока 1)
-
-Примечание: eсли вы уже знаете, что такое декоратор и как его реализовать,
-то реализуйте ф-цию-декоратор и пусть она считает время
-И примените ее к двум своим функциям.
+Подсказка: обратите внимание, сортируем не по возрастанию, как в примере,
+а по убыванию
 """
 
-def timefunc(func):
-    import time
-    
-    def wrapper():
-        start = time.time()
-        func()
-        end = time.time()
-        print('[*] Время выполнения: {} секунд.'.format(end-start))
-    return wrapper
+import random
+import timeit
 
-@timefunc
-def listfunc():
-    a= []
-    a= [i for i in a(range(10000))] 
-listfunc()
 
-@timefunc
-def vocfunc():
-    v= {}
-    v= [i for i in v(range(10000))] 
-vocfunc()
+def bubble(origlist):
+    """Стандартнный подход"""
+    n = 1
+    while n < len(origlist):
+        for i in range(len(origlist)-n):
+            if origlist[i] < origlist[i+1]:
+                origlist[i], origlist[i+1] = origlist[i+1], origlist[i]
+        n += 1
+    return origlist
+"""Доработка"""
+def bubble1(origlist):
+    """Завершаем если нет совпадений"""
+    n = 1
+    k = 0
+    while n < len(origlist):
+        for i in range(len(origlist)-n):
+            if origlist[i] < origlist[i+1]:
+                origlist[i], origlist[i+1] = origlist[i+1], orig_list[i]
+                k = 1
+        if k == 0:
+            break
+        n += 1
+    return origlist
+
+
+orig_list = [random.randint(-100, 100) for i in range(1000)]
+
+print(timeit.timeit("bubble(origlist[:])", setup="from __main__ import bubble, origlist", number=1000))
+
