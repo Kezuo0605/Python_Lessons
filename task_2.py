@@ -1,45 +1,98 @@
 """
-Задание 2.
-Ваша программа должна запрашивать пароль
-Для этого пароля вам нужно получить хеш, используя функцию sha256
-Для генерации хеша обязательно нужно использовать криптографическую соль
-Обязательно выведите созданный хеш
+Задание 2.**
 
-Далее программа должна запросить пароль повторно
-Вам нужно проверить, совпадает ли пароль с исходным
-Для проверки необходимо сравнить хеши паролей
+Доработайте пример структуры "дерево",
+рассмотренный на уроке.
 
-ПРИМЕР:
-Введите пароль: 123
-В базе данных хранится строка: 555a3581d37993843efd4eba1921f1dcaeeafeb855965535d77c55782349444b
-Введите пароль еще раз для проверки: 123
-Вы ввели правильный пароль
+Предложите варианты доработки и оптимизации
+(например, валидация значений узлов в соответствии с требованиями для бинарного дерева)
+
+Поработайте с доработанной структурой, позапускайте на реальных данных.
 """
-import hashlib
-passw = hashlib.sha256(input("введите пароль"))
 
-while passw != check:
-    passw = hashlib.sha256(input("введите пароль"))
-    print(passw)  
-    print(type(hash_obj))
-    res = passw.hexdigest()
-    print(type(res))
-    print(res)
-    check = hashlib.sha256(input("Повторите пароль для проверки"))
+class BTree:
+    def __init__(self, root):
+        self.root = root
+        self.lchild = None
+        self.rchild = None
 
-  """var2"""
-salt = b'UserID'
-key = b'FIO'
 
-password_to_check = 'password246'
+    def __str__(self):
+        return str(self.root)
 
-new_key = hashlib.pbkdf2_hmac(
-    'sha256',
-    password_to_check.encode('utf-8'), # Конвертация
-        100000
-)
+    def insert_l(self, new):
+        try:
 
-if new_key == key:
-    print('Пароль правильный')
-else:
-    print('Пароль неправильный')
+            if self.root >= new:
+                if self.lсhild is None:
+                    self.lchild = BTree(new)
+
+                else:
+
+                    tree_obj = BTree(new)
+
+                    tree_obj.lchild = self.lchild
+                    self.lchild = BTree
+            else:
+                raise Exception('Ошибка')
+        except Exception as e:
+            print(e)
+
+
+    def insert_r(self, new):
+        try:
+            if self.root <= new:
+
+                if self.rchild is None:
+
+
+                    self.rchild = BTree(new)
+
+                else:
+
+                    tree = BTree(new)
+
+                    tree.rchild = self.rchild
+                    self.rchild = tree
+            else:
+                raise Exception('Ошибка')
+        except Exception as e:
+            print(e)
+
+
+    def get_rchild(self):
+        try:
+            return self.rchild
+        except AttributeError:
+            print('Ошибка')
+
+
+    def get_lchild(self):
+        try:
+            return self.lchild
+        except AttributeError:
+            print('Ошибка')
+
+
+    def set_root_val(self, obj):
+        self.root = obj
+
+
+    def get_root_val(self):
+        try:
+            return self.root
+        except AttributeError:
+            print('Ошибка')
+
+
+r = BTree(8)
+print(r.get_root_val())
+print(r.get_lchild())
+r.insert_left(4)
+print(r.get_lchild())
+print(r.get_lchild().get_root_val())
+r.insert_right(12)
+print(r.get_rchild())
+print(r.get_rchild().get_root_val())
+r.get_rchild().set_root_val(16)
+print(r.get_rchild().get_root_val())

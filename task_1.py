@@ -1,36 +1,57 @@
 """
 Задание 1.
+Реализуйте кодирование строки "по Хаффману".
+У вас два пути:
+1) тема идет тяжело? тогда вы можете, опираясь на пример с урока, сделать свою версию алгоритма
+Разрешается и приветствуется изменение имен переменных, выбор других коллекций, различные изменения
+и оптимизации.
+КОПИПАСТ ПРИМЕРА ПРИНИМАТЬСЯ НЕ БУДЕТ!
+2) тема понятна? постарайтесь сделать свою реализацию.
+Вы можете реализовать задачу, например, через ООП или предложить иной подход к решению.
 
-Докажите, что словари обрабатываются быстрее, чем списки.
-
-Реализуйте две функции, в первой нужно заполнить элементами список, во второй-словарь
-Сделайте замеры времени выполнения каждой из функций
-
-Подсказка: для замеров воспользуйтесь модулем time (см. примеры урока 1)
-
-Примечание: eсли вы уже знаете, что такое декоратор и как его реализовать,
-то реализуйте ф-цию-декоратор и пусть она считает время
-И примените ее к двум своим функциям.
+ВНИМАНИЕ: примеры заданий будут размещены в последний день сдачи.
+Но постарайтесь обойтись без них.
 """
+class BinaryTree:
+    def __init__(self, robj):
+        self.root = robj
+        self.lchild = None
+        self.right_child = None
 
-def timefunc(func):
-    import time
-    
-    def wrapper():
-        start = time.time()
-        func()
-        end = time.time()
-        print('[*] Время выполнения: {} секунд.'.format(end-start))
-    return wrapper
+    def ileft(self, new):
+        if self.lchild == None:
+            self.lchild = BinaryTree(new)
+        else:
+            tree = BinaryTree(new)
+            tree.lchild = self.lchild
+            self.lchild = tree
 
-@timefunc
-def listfunc():
-    a= []
-    a= [i for i in a(range(10000))] 
-listfunc()
+    def iright(self, new):
+        if self.rchild == None:
+            self.rchild = BinaryTree(new)
+        else:
+            tree = BinaryTree(new)
+            tree.rchild = self.rchild
+            self.rchild = tree
 
-@timefunc
-def vocfunc():
-    v= {}
-    v= [i for i in v(range(10000))] 
-vocfunc()
+    def get_rchild(self):
+        return self.rchild
+    def get_lchild(self):
+        return self.lchild
+    def root(self, obj):
+        self.root = obj
+    def root(self):
+        return self.root
+
+
+r = BinaryTree(8)
+print(r.root())
+print(r.get_lchild())
+r.insert_left(4)
+print(r.get_lchild())
+print(r.get_lchild().get_root())
+r.insert_right(12)
+print(r.get_rchild())
+print(r.get_rchild().get_root())
+r.get_rchild().set_root(16)
+print(r.get_rchild().get_root())
